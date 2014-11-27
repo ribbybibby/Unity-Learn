@@ -25,19 +25,3 @@ public class BackgroundMovement : MonoBehaviour {
 				}
 		}
 }
-
-	//void Move(int xDirection, int yDirection)
-	//{
-	//moving = true;
-	
-	//while(transform.position.x != xDirection && transform.position.z != yDirection)
-	//{
-		//transform.position.x += Mathf.Lerp(transform.position.x, transform.position.x + xDirection, speed);
-		//transform.position.y += Mathf.Lerp(transform.position.z, transform.position.z + yDirection, speed);
-		
-	//}
-	
-	//moving = false;
-	
-	
-	//}
