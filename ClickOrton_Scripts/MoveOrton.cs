@@ -3,11 +3,6 @@ using System.Collections;
 
 public class MoveOrton : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
 	// Update is called once per frame
 	void Update () {
 		float rndMove;
