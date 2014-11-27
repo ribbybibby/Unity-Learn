@@ -14,15 +14,15 @@ public class CenaMood : MonoBehaviour {
 	// When the Orton count is above (5, 10)+5 and rndGrow hits 10; we swap the colour to red
 	void Update () {
 		if (Time.timeScale != 0F) {
-						int ortonCount = GameObject.FindGameObjectsWithTag ("Ortons").Length;
-						int rndGrow = Random.Range (1, 500);
-						int rndLimit = Random.Range (5, 10);
-						if (ortonCount >= rndLimit) {
-								transform.localScale += new Vector3 (0.005F, 0.005F, 0);
-						}
-						if (rndGrow == 10 & ortonCount >= rndLimit + 5) {
-								GetComponent<SpriteRenderer> ().color = Color.red;
-						}					
+			int ortonCount = GameObject.FindGameObjectsWithTag ("Ortons").Length;
+			int rndGrow = Random.Range (1, 500);
+			int rndLimit = Random.Range (5, 10);
+			if (ortonCount >= rndLimit) {
+					transform.localScale += new Vector3 (0.005F, 0.005F, 0);
+			}
+			if (rndGrow == 10 & ortonCount >= rndLimit + 5) {
+					GetComponent<SpriteRenderer> ().color = Color.red;
+			}					
 		}
 	}
 	
