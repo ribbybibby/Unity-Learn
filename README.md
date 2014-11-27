@@ -1,4 +1,4 @@
 Unity-Learn
 ===========
 
-My awkward attempt to make indie games
+My awkward attempts to make indie games.
