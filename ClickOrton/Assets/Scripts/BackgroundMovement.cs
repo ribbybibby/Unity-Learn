@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class BackgroundMovement : MonoBehaviour {
-
+	
 	void Update () {
 				if (transform.position.x >= 1 & transform.position.y >= -1) {
 						transform.Translate (Vector3.down * Time.deltaTime, Space.World);			
@@ -18,3 +18,4 @@ public class BackgroundMovement : MonoBehaviour {
 				}
 		}
 }
+

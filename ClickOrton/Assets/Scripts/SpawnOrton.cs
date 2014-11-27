@@ -6,6 +6,8 @@ public class SpawnOrton : MonoBehaviour {
 
 	// On click, create between 1 and 3 new ortons at any location in the camera's view and then destroy the existing Orton
 	void OnMouseDown(){
+		if (Time.timeScale != 0F) {
+
 		int h = (Random.Range (1,3));
 		int i = 0;
 		while (i < h) {
@@ -17,5 +19,6 @@ public class SpawnOrton : MonoBehaviour {
 						i++;
 				}
 		Destroy (gameObject);
+		}
 	}
 }

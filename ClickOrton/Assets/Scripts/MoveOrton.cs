@@ -3,7 +3,6 @@ using System.Collections;
 
 public class MoveOrton : MonoBehaviour {
 
-	// Update is called once per frame
 	void Update () {
 		float rndMove;
 		rndMove = (Random.Range(0F,20F));
