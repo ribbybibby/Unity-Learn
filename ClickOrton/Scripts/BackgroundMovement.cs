@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class BackgroundMovement : MonoBehaviour {
-	
+
+	// Move the background between four corner points in a square clockwise movement
 	void Update () {
 				if (transform.position.x >= 1 & transform.position.y >= -1) {
 						transform.Translate (Vector3.down * Time.deltaTime, Space.World);			

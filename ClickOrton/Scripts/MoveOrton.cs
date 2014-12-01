@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MoveOrton : MonoBehaviour {
 
+	// Move Orton up, down, left or right based on a Random number
+	// Creates an eerie shake effect (y)
 	void Update () {
 		float rndMove;
 		rndMove = (Random.Range(0F,20F));
