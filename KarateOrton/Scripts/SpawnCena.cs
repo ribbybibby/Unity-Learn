@@ -6,11 +6,11 @@ public class SpawnCena : MonoBehaviour {
 
 	void Update ()
 	{
-		float rndA = Random.Range (0.1f, 1000f);
+		float rndA = Random.Range (0f, 500f);
 		if (rndA < 5) 
 		{
-			float x = Random.Range (-9.0f, 8.5f);
-			float y = Random.Range (-4.5f, 6.8f);
+			float x = Random.Range (-16f, 16f);
+			float y = Random.Range (1f, 13f);
 			//Vector3 pos = new Vector3 (x, y, 10f);
 			//pos = Camera.main.ViewportToWorldPoint (pos);
 			Instantiate (Cena, new Vector3 (x,y,-1), Quaternion.identity);
