@@ -3,18 +3,22 @@ using System.Collections;
 
 public class OrtonControllerLimited : MonoBehaviour {
 	
-	//Set in 
+	// Set in Unity 
 	public float speed; //Player move speed
-	public int jumpLimit; //Number of jumps performed since hitting the ground
-	public int jumpHeight; //Jump Height
 	public int kickForce; // Force of kick
+	public int jumpLimit; // Number of jumps allowed before having to return to the floor
+	public int jumpHeight; //Jump Height
 	public Texture normalTexture; //Normal player texture
 	public Texture redTexture; //Texture of attacking player
+
+	// Leave blank in Unity
+	public int jumpsMade; //Number of jumps performed since leaving the ground
 	public bool readyToKick; //Is object able to attack?
-	
+
+
 	void Start () {
 		readyToKick = true;
-		jumpLimit = 0;
+		jumpsMade = 0;
 	}
 	
 	void Update () 
@@ -31,14 +35,16 @@ public class OrtonControllerLimited : MonoBehaviour {
 			transform.Translate (Vector2.right * speed * Time.deltaTime);
 			transform.eulerAngles = new Vector3(0,0,180); //flip the character on its x axis
 		}
+		//Jump
 		if (Input.GetKeyDown (KeyCode.W))
 		{
-			if (jumpLimit < 3)
+			if (jumpsMade < jumpLimit)
 			{
 				rigidbody2D.AddForce (Vector2.up * jumpHeight);
-				jumpLimit++;
+				jumpsMade++;
 			}
 		}
+		// Add left or right force dependent on rotation, swap red 'attack' texture in
 		if (Input.GetKeyDown (KeyCode.K)) 
 		{
 			if (transform.eulerAngles.z < 170 & readyToKick == true)
@@ -58,33 +64,32 @@ public class OrtonControllerLimited : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		if (gameObject.GetComponent<MeshRenderer> ().materials [0].mainTexture == redTexture & col.gameObject.tag == "Cena") {
+		// If red orton hits Cena enemy: destroy Cena
+		if (gameObject.GetComponent<MeshRenderer> ().materials [0].mainTexture == redTexture & col.gameObject.tag == "Cena") 
+		{
 			Destroy(col.gameObject);
 		}
-		if (gameObject.GetComponent<MeshRenderer> ().materials [0].mainTexture == normalTexture & col.gameObject.tag == "Cena") {
+		// If Cena enemy hits normal Cena: destroy Orton, restart level
+		if (gameObject.GetComponent<MeshRenderer> ().materials [0].mainTexture == normalTexture & col.gameObject.tag == "Cena") 
+		{
 			Destroy(gameObject);
 			Application.LoadLevel(Application.loadedLevel);
 		}
-		if (col.gameObject.tag == "Ground") {
-			jumpLimit = 0;
+		// If Orton hits a piece of floor, reset the available jumps and switch back to normal texture 
+		if (col.gameObject.tag == "Ground") 
+		{
+			jumpsMade = 0;
 			gameObject.GetComponent<MeshRenderer> ().materials [0].mainTexture = normalTexture;
 		}
 	}
-
-	void OnCollisionStay2D(Collision2D col)
-	{
-		if (col.gameObject.tag == "Ground") 
-		{	
-			rigidbody2D.isKinematic = false;
-			//readyToKick = false;
-			//gameObject.GetComponent<MeshRenderer> ().materials [0].mainTexture = normalTexture;
-		}
-	}
-
+	
+	// Make sure dash/kick is always available after leaving a bit of floor
 	void OnCollisionExit2D(Collision2D col)
 	{
-		rigidbody2D.isKinematic = false;
-		readyToKick = true;
+		if (col.gameObject.tag == "Ground") 
+		{
+			readyToKick = true;
+		}
 	}
 }
 	

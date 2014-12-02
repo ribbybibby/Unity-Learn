@@ -4,20 +4,19 @@ using System.Collections;
 public class CenaMovement : MonoBehaviour {
 	public int jumpForce; //Force of jump 
 	public Transform target;
-	public float speed;
-	public float smooth = 2.0F;
-	public float tiltAngle = 30.0F;
-	public float targetX;
+	public float speed; //Speed of movement
+	public float xRight; // Right bound
+	public float xLeft; // Left bound
+	public float yTop; // Top bound
+	public float yBottom; // Bottom bound
 
-	// Use this for initialization
+	// Set the target as "Player" (Orton)
 	void Start () {
 		target = GameObject.FindGameObjectWithTag ("Player").transform;
 	}
 	
-	// Update is called once per frame
+	// On collision, apply force upwards and then left/right depending on the Player's relation to this object on the X-axis
 	void OnCollisionEnter2D(Collision2D col) {
-
-
 		rigidbody2D.AddForce (Vector3.up * jumpForce);
 		float targetdiff = target.position.x - transform.position.x;
 	
@@ -33,7 +32,9 @@ public class CenaMovement : MonoBehaviour {
 
 	}
 
-
+	// The lowest floor is contained in a special layer (9); if Cena hits it, 
+	// he is spawned back at a random point inside the bounds (prevents floor clusters,
+	// maintains pace of gameplay.
 	void OnCollisionStay2D(Collision2D col) {
 		if (col.gameObject.layer == 9) 
 		{
@@ -42,7 +43,9 @@ public class CenaMovement : MonoBehaviour {
 			transform.position = new Vector2 (x, y); 
 		}
 
-		float rndNo = Random.Range (1, 4);
+		// If this object gets stuck for too long on any surface, we give it a strong force 
+		//towards the player to try and dislodge it 
+		float rndNo = Random.Range (1, 10);
 		if (rndNo == 3) {
 			float targetdiff = target.position.x - transform.position.x;
 			if (targetdiff > 0f) {	
