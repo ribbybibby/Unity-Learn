@@ -43,8 +43,8 @@ public class CenaMovement : MonoBehaviour {
 			transform.position = new Vector2 (x, y); 
 		}
 
-		// If this object gets stuck for too long on any surface, we give it a strong force 
-		//towards the player to try and dislodge it 
+		// When the object lingers on a floor, we exert half-speed forces on it to
+		// keep it moving along.
 		float rndNo = Random.Range (1, 10);
 		if (rndNo == 3) {
 			float targetdiff = target.position.x - transform.position.x;
