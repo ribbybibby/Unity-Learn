@@ -38,8 +38,8 @@ public class CenaMovement : MonoBehaviour {
 	void OnCollisionStay2D(Collision2D col) {
 		if (col.gameObject.layer == 9) 
 		{
-			float x = Random.Range (-16f, 16f);
-			float y = Random.Range (1f, 13f);
+			float x = Random.Range (xLeft, xRight);
+			float y = Random.Range (yBottom, yTop);
 			transform.position = new Vector2 (x, y); 
 		}
 
