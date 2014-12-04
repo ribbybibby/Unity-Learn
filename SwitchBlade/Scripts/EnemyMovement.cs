@@ -8,7 +8,6 @@ public class EnemyMovement : MonoBehaviour {
 	public float xLeft; // Left bound
 	public float yTop; // Top bound
 	public float yBottom; // Bottom bound
-	private int weakPlayer; // 0 = Player 1; 1 = Player 2
 
 	GameObject FindWeakPlayer (){
 		GameObject[] targets;
