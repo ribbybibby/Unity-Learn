@@ -41,7 +41,6 @@ public class EnemyMovement : MonoBehaviour {
 			MoveEnemy();
 		}
 	}
-<<<<<<< HEAD
 
 	public void MoveEnemy() 
 	{
@@ -58,6 +57,3 @@ public class EnemyMovement : MonoBehaviour {
 	}
 }
 
-=======
-}
->>>>>>> FETCH_HEAD
