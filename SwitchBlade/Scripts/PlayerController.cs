@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour {
 	public int kickForce; // Force of kick
 	public int jumpLimit; // Number of jumps allowed before having to return to the floor
 	public int jumpHeight; //Jump Height
-	public bool strong; //Is the character weak or strong?
+	public bool strong; //Is the character weak or strong? 
+						//(currently we switch this in Start, so put the reverse of what you want in Unity
 	public KeyCode moveRight; // Right
 	public KeyCode moveLeft; // Left
 	public KeyCode moveJump; // Jump
@@ -20,7 +21,8 @@ public class PlayerController : MonoBehaviour {
 	private bool readyToKick; //Is object able to attack?
 	private int fixedJumps; //Save the user-set jumpLimit
 	private float fixedSpeed; //Save the user-set fixedSpeed
-	private int matreset;
+	private int matreset; // The current material for the object, 0 = Strong, 1 = Weak
+
 
 	// Use this for initialization
 	void Start () {
@@ -30,47 +32,10 @@ public class PlayerController : MonoBehaviour {
 		fixedJumps = jumpLimit;
 		fixedSpeed = speed;
 
-		// Tag object, depending on the strong bool
-		if (strong == true) 
-		{
-			matreset = 0;
-			renderer.material = materials[0];
-			gameObject.tag = "strong";
-		}
-		else 
-		{
-			matreset = 1;
-			renderer.material = materials[1];
-			jumpLimit = 1;
-			speed = speed/3;
-			gameObject.tag = "weak";
-		}
+		// Change between strong and weak, makes sure everything is set right at the start 
+		ChangeMode ();
 	}
 	
-	public void ChangeMode()
-	{
-		if (strong == true) 
-		{
-			// Weak
-			matreset = 1;
-			renderer.material = materials[1];
-			jumpLimit = 1;
-			speed = speed/3;
-			strong = false;
-			gameObject.tag = "weak";
-		}
-		else 
-		{
-			// Strong
-			matreset = 0;
-			renderer.material = materials[0];
-			jumpLimit = fixedJumps;
-			speed = fixedSpeed;
-			strong = true;
-			gameObject.tag = "strong";
-		}
-	}
-
 	void Update () 
 	{
 		//Move Right
@@ -117,7 +82,6 @@ public class PlayerController : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		Debug.Log (gameObject.renderer.material.name);
 		// If red orton hits Cena enemy: destroy Cena
 		if (gameObject.renderer.material.name == "Angry (Instance)" & (col.gameObject.name == "Enemy" || col.gameObject.name == "Enemy(Clone)")) 
 		{
@@ -145,5 +109,31 @@ public class PlayerController : MonoBehaviour {
 			readyToKick = true;
 		}
 	}
+
+	public void ChangeMode()
+	{
+		if (strong == true) 
+		{
+			// Weak
+			matreset = 1;
+			renderer.material = materials[1];
+			jumpLimit = 1;
+			speed = speed/3;
+			strong = false;
+			gameObject.tag = "weak";
+		}
+		else 
+		{
+			// Strong
+			matreset = 0;
+			renderer.material = materials[0];
+			jumpLimit = fixedJumps;
+			speed = fixedSpeed;
+			strong = true;
+			gameObject.tag = "strong";
+		}
+	}
 }
+
+
 

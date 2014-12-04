@@ -8,7 +8,6 @@ public class EnemyMovement : MonoBehaviour {
 	public float xLeft; // Left bound
 	public float yTop; // Top bound
 	public float yBottom; // Bottom bound
-	private int weakPlayer; // 0 = Player 1; 1 = Player 2
 
 	GameObject FindWeakPlayer (){
 		GameObject[] targets;
@@ -21,16 +20,7 @@ public class EnemyMovement : MonoBehaviour {
 	// On collision, apply force upwards and then left/right depending on the Weak Player's relation to this object on the X-axis
 	void OnCollisionEnter2D(Collision2D col) {
 		rigidbody2D.AddForce (Vector3.up * jumpForce);
-		float targetdiff = (FindWeakPlayer().transform.position.x) - transform.position.x;
-	
-		if (targetdiff > 0f) 
-		{	
-			rigidbody2D.AddForce (Vector3.right * speed);
-		}
-		if (targetdiff < 0) 
-		{
-			rigidbody2D.AddForce (Vector3.left * speed);
-		}
+		MoveEnemy ();
 	}
 
 	// The lowest floor is contained in a special layer (9); if the Enemy hits it, 
@@ -48,13 +38,22 @@ public class EnemyMovement : MonoBehaviour {
 		//towards the player to try and dislodge it 
 		float rndNo = Random.Range (1, 10);
 		if (rndNo == 3) {
-			float targetdiff = (FindWeakPlayer().transform.position.x) - transform.position.x;
-			if (targetdiff > 0f) {	
-				rigidbody2D.AddForce (Vector3.right * speed / 2);
-			}
-			if (targetdiff < 0) {
-				rigidbody2D.AddForce (Vector3.left * speed / 2);
-			}
+			MoveEnemy();
 		}
 	}
+
+	public void MoveEnemy() 
+	{
+		float targetdiff = (FindWeakPlayer().transform.position.x) - transform.position.x;
+		
+		if (targetdiff > 0f) 
+		{	
+			rigidbody2D.AddForce (Vector3.right * speed);
+		}
+		if (targetdiff < 0) 
+		{
+			rigidbody2D.AddForce (Vector3.left * speed);
+		}		
+	}
 }
+
